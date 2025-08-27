@@ -110,8 +110,7 @@ namespace Settings {
   SettingsEntry CROSSUP_ENABABLED = SettingsEntry{
       OptionData{L"Show Crossup: ", 2, {L"<  Disabled  >", L"<  Enabled   >"}},
       "crossup_enabled",
-      0
-  };
+      0};
 
   std::array<SettingsEntry *, 9> settings = {
       &FRAMEBAR,
@@ -329,11 +328,11 @@ void ModMenu::update(PressedKeys data) {
   if (!is_showing) return;
 
   // get button inputs and update cursor
-//  auto checker = RedInputChecker(asw_engine::get()->inputs[0]);
-//  if (checker.checkInput(RedInputChecker::IF_Up)) cursor_position = rotateVal(cursor_position, false, OPTION_COUNT);
-//  if (checker.checkInput(RedInputChecker::IF_Down)) cursor_position = rotateVal(cursor_position, true, OPTION_COUNT);
-//  if (checker.checkInput(RedInputChecker::IF_Left)) changeSetting(cursor_position, false);
-//  if (checker.checkInput(RedInputChecker::IF_Right)) changeSetting(cursor_position, true);
+  //  auto checker = RedInputChecker(asw_engine::get()->inputs[0]);
+  //  if (checker.checkInput(RedInputChecker::IF_Up)) cursor_position = rotateVal(cursor_position, false, OPTION_COUNT);
+  //  if (checker.checkInput(RedInputChecker::IF_Down)) cursor_position = rotateVal(cursor_position, true, OPTION_COUNT);
+  //  if (checker.checkInput(RedInputChecker::IF_Left)) changeSetting(cursor_position, false);
+  //  if (checker.checkInput(RedInputChecker::IF_Right)) changeSetting(cursor_position, true);
   if (data.go_up) cursor_position = rotateVal(cursor_position, false, OPTION_COUNT);
   if (data.go_down) cursor_position = rotateVal(cursor_position, true, OPTION_COUNT);
   if (data.rotate_left) changeSetting(cursor_position, false);
@@ -368,7 +367,7 @@ bool ModMenu::dashEnabled() const { return Settings::SHOW_DASH_FRAMES.value; }
 bool ModMenu::crossupEnabled() const { return Settings::CROSSUP_ENABABLED.value; }
 int ModMenu::pauseType() const { return Settings::PAUSE_TYPE.value; }
 
-const int delayAmounts [4] = {0, 20, 30, 60};
+const int delayAmounts[4] = {0, 20, 30, 60};
 int ModMenu::delayAmount() const { return delayAmounts[Settings::DELAY_AMOUNT.value]; }
 
 CurrentOptions ModMenu::getScheme() const {

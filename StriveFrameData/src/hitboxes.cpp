@@ -304,7 +304,7 @@ hitbox calc_afro_box(const asw_player &entity, int exIndex) {
   afro.h = static_cast<float>(entity.afroH);
   afro.w = static_cast<float>(entity.afroW);
 
-//  Output::send<LogLevel::Verbose>(STR("Extend Boxes: {} x {} y\n"), extend.x , extend.y);
+  //  Output::send<LogLevel::Verbose>(STR("Extend Boxes: {} x {} y\n"), extend.x , extend.y);
 
   afro.x = extend.x - static_cast<float>(entity.afroW) / 2.f;
   afro.y = extend.y - static_cast<float>(entity.afroH) / 2.f;
@@ -322,18 +322,18 @@ hitbox calc_throw_box(const asw_player &entity) {
   const int AIR_PUSHBOX_HEIGHT_HALF = 75000;
 
   // Ground throws have `activation range y xxx` as -1 for both
-  if (entity.activation_range_y_min == -1 && entity.activation_range_y_max == -1) {  // Ground throw calcs
+  if (entity.activation_range_y_min == -1 && entity.activation_range_y_max == -1) { // Ground throw calcs
     box.x = 0.f;
     box.w = (float)(pushbox_front + entity.throw_range);
     box.y = 0.f;
 
     // No throw height, use pushbox height for display
     box.h = (float)entity.pushbox_height();
-  } else {  // Air calcs
+  } else { // Air calcs
     // Basically only accounting for the x_min < 0 < x_max case; you can probably also account for x_min < x_max < 0 or 0 < x_min < x_max but I'm lazy
     if (entity.activation_range_x_min < -1) {
-      box.x = (float) std::max(entity.activation_range_x_min, -entity.throw_range - 2 * AIR_PUSHBOX_WIDTH_HALF) + AIR_PUSHBOX_WIDTH_HALF;
-      box.w = (float) -box.x;
+      box.x = (float)std::max(entity.activation_range_x_min, -entity.throw_range - 2 * AIR_PUSHBOX_WIDTH_HALF) + AIR_PUSHBOX_WIDTH_HALF;
+      box.w = (float)-box.x;
     } else {
       // box.w already preset
       box.x = -(float)(pushbox_front + entity.throw_range);
@@ -341,13 +341,13 @@ hitbox calc_throw_box(const asw_player &entity) {
     }
 
     if (entity.activation_range_x_max > -1) {
-      box.w += (float) std::min(entity.activation_range_x_max, entity.throw_range + 2 * AIR_PUSHBOX_WIDTH_HALF) - AIR_PUSHBOX_WIDTH_HALF;
+      box.w += (float)std::min(entity.activation_range_x_max, entity.throw_range + 2 * AIR_PUSHBOX_WIDTH_HALF) - AIR_PUSHBOX_WIDTH_HALF;
     } else {
-      box.w += (float) (pushbox_front + entity.throw_range);
+      box.w += (float)(pushbox_front + entity.throw_range);
     }
 
-    box.y = (float) (entity.pushboxYUpperAir - entity.pushboxYLowerAir) / 2.0f + (float) (entity.activation_range_y_min + AIR_PUSHBOX_HEIGHT_HALF);
-    box.h = (float) (entity.activation_range_y_max - entity.activation_range_y_min) - AIR_PUSHBOX_HEIGHT_HALF * 2;
+    box.y = (float)(entity.pushboxYUpperAir - entity.pushboxYLowerAir) / 2.0f + (float)(entity.activation_range_y_min + AIR_PUSHBOX_HEIGHT_HALF);
+    box.h = (float)(entity.activation_range_y_max - entity.activation_range_y_min) - AIR_PUSHBOX_HEIGHT_HALF * 2;
   }
 
   return box;
@@ -365,15 +365,14 @@ void draw_hitboxes(const DrawTool &tool, const asw_entity &entity, bool active) 
     if (box.type == hitbox::box_type::hit && !active) {
       continue;
     } else if (box.type == hitbox::box_type::hurt && entity.is_strike_invuln()) {
-        continue;
+      continue;
     }
 
     hitboxes.push_back(DrawnHitbox(box));
   }
 
-  
-  if(entity.is_player){
-    asw_player& player = *(asw_player*)&entity;
+  if (entity.is_player) {
+    asw_player &player = *(asw_player *)&entity;
 
     // hacky afro hurtbox
     // Jank way of finding the last hitbox (since entity.hitboxes isn't actually an array i don't think???)
@@ -389,7 +388,6 @@ void draw_hitboxes(const DrawTool &tool, const asw_entity &entity, bool active) 
           break;
         }
       }
-
     }
 
     // Add throw hitbox if in use
@@ -397,7 +395,6 @@ void draw_hitboxes(const DrawTool &tool, const asw_entity &entity, bool active) 
       hitboxes.push_back(calc_throw_box(player));
     }
   }
-  
 
   for (auto i = 0; i < hitboxes.size(); i++) {
     // Clip outlines
@@ -477,8 +474,8 @@ void draw_pushbox(const DrawTool &tool, const asw_entity &entity) {
   // Show outlined pushbox when pushbox doesn't have intangibility
   if (entity.is_pushbox_active() || !entity.is_throw_invuln())
     draw_rect(tool, corners, color);
-//  else
-//    draw_rect_no_outline(tool, corners, color);
+  //  else
+  //    draw_rect_no_outline(tool, corners, color);
 }
 
 void drawAllBoxes() {
@@ -497,7 +494,7 @@ void drawAllBoxes() {
 
     const auto *attached = entity.attached;
     while (attached != nullptr) {
-//      Output::send<LogLevel::Verbose>(STR("Attached Entity\n"));
+      //      Output::send<LogLevel::Verbose>(STR("Attached Entity\n"));
 
       draw_hitboxes(tool, *attached, active);
       attached = attached->attached;

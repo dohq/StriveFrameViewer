@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Unreal/AActor.hpp>
-#include "struct_util.h"
 #include "bbscript.h"
+#include "struct_util.h"
+#include <Unreal/AActor.hpp>
 
 void ASWInitFunctions();
 
@@ -15,21 +15,21 @@ class AGameState : public RC::Unreal::AActor {};
 
 class UWorld : public RC::Unreal::UObject {
 public:
-  FIELD(0x130, AGameState*, GameState);
+  FIELD(0x130, AGameState *, GameState);
 };
 
 class AREDGameState_Battle : public AGameState {
 public:
-  FIELD(0xC30, class asw_engine*, Engine);
-  FIELD(0xC38, class asw_scene*, Scene);
-  FIELD(0xC50, class asw_events*, Events);
+  FIELD(0xC30, class asw_engine *, Engine);
+  FIELD(0xC38, class asw_scene *, Scene);
+  FIELD(0xC50, class asw_events *, Events);
 };
 
 class player_block {
   char pad[0x190];
 
 public:
-  FIELD(0x8, class asw_player*, entity);
+  FIELD(0x8, class asw_player *, entity);
 };
 
 static_assert(sizeof(player_block) == 0x190);
@@ -97,11 +97,11 @@ public:
 
 class asw_inputs {
 public:
-  unsigned short m_PreRecFlg; // 0x0
-  unsigned short m_CurRecFlg; // 0x2
+  unsigned short m_PreRecFlg;      // 0x0
+  unsigned short m_CurRecFlg;      // 0x2
   unsigned short m_RecFlgList[30]; // 0x4
   unsigned short m_RecFlgTime[30]; // 0x40
-  unsigned short m_CurIndex; // 0x7C
+  unsigned short m_CurIndex;       // 0x7C
 };
 
 // Used by the shared GG/BB/DBFZ engine code
@@ -113,8 +113,8 @@ public:
 
   ARRAY_FIELD(0x0, player_block[2], players);
   FIELD(0x900, int, entity_count);
-  ARRAY_FIELD(0xC70, class asw_entity* [107], entities);
-  ARRAY_FIELD(0x1498, RC::Unreal::AActor* [7], pawns);
+  ARRAY_FIELD(0xC70, class asw_entity *[107], entities);
+  ARRAY_FIELD(0x1498, RC::Unreal::AActor *[7], pawns);
   ARRAY_FIELD(0x3858, asw_inputs[6], inputs);
 };
 
@@ -157,11 +157,11 @@ class event_handler {
   char pad[0x58];
 
 public:
-  FIELD(0x0, char*, script);
-  FIELD(0x8, char*, action_name);
+  FIELD(0x0, char *, script);
+  FIELD(0x8, char *, action_name);
   FIELD(0x28, int, trigger_value);
   FIELD(0x2C, int, trigger_value_2);
-  FIELD(0x30, char*, label);
+  FIELD(0x30, char *, label);
   FIELD(0x50, unsigned int, int_flag);
 };
 
@@ -175,7 +175,7 @@ public:
   FIELD(0x4, int, atk_level);
   FIELD(0x8, int, atk_level_clash);
   FIELD(0xC, int, damage);
-  FIELD(0x24, int*, hitstop_enemy_addition);
+  FIELD(0x24, int *, hitstop_enemy_addition);
   FIELD(0x30, int, hitstop);
   FIELD(0x34, int, grab_wait_time);
   FIELD(0x38, int, guard_time);
@@ -247,7 +247,7 @@ enum SKILL_ACTIVE_FLAG {
 class MoveData {
   char pad[0x220]; // ghidra says 0x200, experimentation show 0x220
 public:
-  ARRAY_FIELD(0x0, char[20], move_name); // m_SkillName
+  ARRAY_FIELD(0x0, char[20], move_name);        // m_SkillName
   FIELD(0x1B8, SKILL_ACTIVE_FLAG, active_flag); // m_SkillActiveFlag
 
   const char *get_name() const { return &move_name[0]; }
@@ -265,10 +265,10 @@ class MoveDataCollection {
 
 public:
   ARRAY_FIELD(0x0, MoveData[180], moves); // m_SkillInfo
-  //ARRAY_FIELD(0x16804, int[180], indicies); // m_SkillRegisterIndexList
-  //FIELD(0x16AD4, long, index_count); // m_SkillRegisterNum
+  // ARRAY_FIELD(0x16804, int[180], indicies); // m_SkillRegisterIndexList
+  // FIELD(0x16AD4, long, index_count); // m_SkillRegisterNum
   FIELD(0x1A09C, long, move_count); // m_SkillInfoCount,  Ghidra: 0x18A1C
-  //0x18A28 Hash of Skill Names
+  // 0x18A28 Hash of Skill Names
 };
 
 class asw_entity {
@@ -276,7 +276,7 @@ public:
   FIELD(0x18, bool, active);
   FIELD(0x20, bool, is_player);
   FIELD(0x44, unsigned char, player_index);
-  FIELD(0x78, hitbox*, hitboxes);
+  FIELD(0x78, hitbox *, hitboxes);
   FIELD(0x10C, int, hurtbox_count);
   FIELD(0x110, int, hitbox_count);
   BIT_FIELD(0x1A8, 0x4000000, cinematic_counter);
@@ -284,10 +284,10 @@ public:
   FIELD(0x1E0, int, act_reg_0);
   FIELD(0x280, int, hitstop);
   FIELD(0x2AC, int, ground_height);
-  FIELD(0x2B0, asw_entity*, parent_ply);
-  FIELD(0x2B8, asw_entity*, parent_obj);
-  FIELD(0x2C0, asw_player*, opponent);
-  FIELD(0x318, asw_entity*, attached);
+  FIELD(0x2B0, asw_entity *, parent_ply);
+  FIELD(0x2B8, asw_entity *, parent_obj);
+  FIELD(0x2C0, asw_player *, opponent);
+  FIELD(0x318, asw_entity *, attached);
   BIT_FIELD(0x390, 1, airborne);
   BIT_FIELD(0x390, 256, counterhit);
   BIT_FIELD(0x394, 16, strike_invuln);
@@ -314,17 +314,17 @@ public:
   FIELD(0x798, int, activation_range_x_min);
   FIELD(0x79c, int, activation_range_y_min);
   FIELD(0x7a0, int, throw_range);
-  FIELD(0xB60, atk_param_ex, atk_param_ex_normal); // Outdated?
+  FIELD(0xB60, atk_param_ex, atk_param_ex_normal);  // Outdated?
   FIELD(0xC1C, atk_param_ex, atk_param_ex_counter); // Outdated?
-  FIELD(0xCF0, atk_param, atk_param_defend); // Outdated?
+  FIELD(0xCF0, atk_param, atk_param_defend);        // Outdated?
   FIELD(0x10F0, atk_param_ex, atk_param_ex_defend); // Outdated?
   FIELD(0x11EC, int, backdash_invuln);
   // bbscript
   FIELD(0x1260, bbscript::event_bitmask, event_handler_bitmask);
-  FIELD(0x12A0, char*, bbs_file);
-  FIELD(0x12A8, char*, script_base);
-  FIELD(0x12B0, char*, next_script_cmd);
-  FIELD(0x12B8, char*, first_script_cmd);
+  FIELD(0x12A0, char *, bbs_file);
+  FIELD(0x12A8, char *, script_base);
+  FIELD(0x12B0, char *, next_script_cmd);
+  FIELD(0x12B8, char *, first_script_cmd);
 
   ARRAY_FIELD(0x12C0, char[32], sprite_name);
   FIELD(0x12E0, int, sprite_duration);
@@ -582,14 +582,14 @@ class asw_player : public asw_entity {
 public:
   FIELD(0x62B0, int, enable_flag); // original: 0x6080 -> fixed: 0x60E0 (+0x060)
   FIELD(0x62BC, int, attack_flag); // original: 0x5F90 -> fixed: 0x60EC (+0x060)
-  FIELD(0x62D0, int, blockstun); // original: 0x60A0 + 0x060 = 0x6100
-  FIELD(0x9A98, int, hitstun); // original: 0x9868 + 0x060 = 0x98C8
+  FIELD(0x62D0, int, blockstun);   // original: 0x60A0 + 0x060 = 0x6100
+  FIELD(0x9A98, int, hitstun);     // original: 0x9868 + 0x060 = 0x98C8
 
   FIELD(0x9B68, int, pushboxYUpperAir);
   FIELD(0x9B6C, int, pushboxYLowerAir);
 
   FIELD(0xC49C, ID_CMNACT, cur_cmn_action_id); // original: 0xC26C + 0x060 = 0xC2CC
-  FIELD(0xD1CC, int, slowdown_timer); // original: 0xCF9C + 0x060 = 0xCFFC
+  FIELD(0xD1CC, int, slowdown_timer);          // original: 0xCF9C + 0x060 = 0xCFFC
   FIELD(0x1089F, MoveDataCollection, move_datas);
 
   FIELD(0x102A8, int, afro); // m_IsAfro Header: 0xed28, Offset: 0x508

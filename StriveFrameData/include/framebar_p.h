@@ -29,10 +29,10 @@ enum ModifierType {
   MT_SegmentEnd = 0x4,
   MT_CrossUp = 0x8
 };
-inline ModifierType operator|(ModifierType a, ModifierType b) { return (ModifierType)((int)a | (int)b);}
-inline ModifierType operator&(ModifierType a, ModifierType b) { return (ModifierType)((int)a & (int)b);}
-inline ModifierType& operator|=(ModifierType& a, ModifierType b) { return (a = a | b);}
-inline ModifierType& operator&=(ModifierType& a, ModifierType b) { return (a = a & b);}
+inline ModifierType operator|(ModifierType a, ModifierType b) { return (ModifierType)((int)a | (int)b); }
+inline ModifierType operator&(ModifierType a, ModifierType b) { return (ModifierType)((int)a & (int)b); }
+inline ModifierType &operator|=(ModifierType &a, ModifierType b) { return (a = a | b); }
+inline ModifierType &operator&=(ModifierType &a, ModifierType b) { return (a = a & b); }
 
 struct ProjectileTracker {
   struct ProjectileInfo {
@@ -144,7 +144,7 @@ struct FrameBar::Data {
     func(&data.second, args...);
   }*/
 
-  void drawFrame(const CurrentOptions& scheme,  const FrameInfo &info, int top, int left);
+  void drawFrame(const CurrentOptions &scheme, const FrameInfo &info, int top, int left);
   void resetFrames();
 
   Data();
