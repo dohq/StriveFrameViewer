@@ -27,7 +27,7 @@ jobs:
         ssh-key: ${{ secrets.UEPSEUDO_SSH_KEY }}
 
     - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v2
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
