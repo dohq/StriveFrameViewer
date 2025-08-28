@@ -27,7 +27,7 @@ jobs:
         ssh-key: ${{ secrets.UEPSEUDO_SSH_KEY }}
 
     - name: Add Rust to PATH
-      uses: actions-rust-lang/setup-rust-toolchain@v1
+      uses: dtolnay/rust-toolchain@stable
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v2
