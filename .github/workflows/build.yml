@@ -20,14 +20,14 @@ jobs:
         known_hosts: unnecessary
 
     - name: Checkout SFV
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         submodules: recursive
         fetch-depth: 0 # needed to get commits since last tag
         ssh-key: ${{ secrets.UEPSEUDO_SSH_KEY }}
-    
+
     - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v2
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
@@ -37,7 +37,7 @@ jobs:
         cmake -G "Visual Studio 17 2022" ..
         msbuild /p:Configuration=${{env.BUILD_CONFIGURATION}} .\StriveFrameData\StriveFrameData.sln
         msbuild /p:Configuration=${{env.BUILD_CONFIGURATION}} .\RE-UE4SS\UE4SS\proxy_generator\proxy\proxy.sln
-    
+
     - name: StandalonePackage
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: |
@@ -51,7 +51,7 @@ jobs:
         cp .\prereqs\FText_Constructor.lua .\standalone\UE4SS_Signatures\FText_Constructor.lua
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3.1.1
+      uses: actions/upload-artifact@v4
       with:
         name: StriveFrameViewer_Standalone
         path: ${{github.workspace}}\standalone\
@@ -64,12 +64,11 @@ jobs:
         cp .\build\StriveFrameData\${{env.BUILD_CONFIGURATION}}\StriveFrameData.dll .\unverum\ue4ss\StriveFrameViewer\dlls\main.dll
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3.1.1
+      uses: actions/upload-artifact@v4
       with:
         name: StriveFrameViewer_Unverum
         path: ${{github.workspace}}\unverum\
         if-no-files-found: error
 
 
-        
-    
+
