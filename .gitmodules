@@ -3,4 +3,4 @@
 	url = https://github.com/TsudaKageyu/minhook.git
 [submodule "RE-UE4SS"]
 	path = RE-UE4SS
-	url = https://github.com/Chitaso/RE-UE4SS.git
+	url = git@github.com:UE4SS-RE/RE-UE4SS.git
