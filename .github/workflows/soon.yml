@@ -20,21 +20,21 @@ jobs:
         known_hosts: unnecessary
 
     - name: Checkout SFV
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         submodules: recursive
         fetch-depth: 0 # needed to get commits since last tag
         ssh-key: ${{ secrets.UEPSEUDO_SSH_KEY }}
-    
+
     - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v2
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
       shell: pwsh
       run: |
         .\Scripts\build_project.ps1
-    
+
     - name: StandalonePackage
       working-directory: ${{env.GITHUB_WORKSPACE}}
       shell: pwsh
@@ -42,7 +42,7 @@ jobs:
         .\Scripts\package_standalone.ps1
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3.1.1
+      uses: actions/upload-artifact@v4
       with:
         name: StriveFrameViewer_Standalone
         path: ${{github.workspace}}\Packages\Standalone\
@@ -55,12 +55,8 @@ jobs:
         .\Scripts\package_unverum.ps1
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3.1.1
+      uses: actions/upload-artifact@v4
       with:
         name: StriveFrameViewer_Unverum
         path: ${{github.workspace}}\Packages\Unverum\
         if-no-files-found: error
-
-
-        
-    
