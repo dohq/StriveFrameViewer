@@ -26,6 +26,9 @@ jobs:
         fetch-depth: 0 # needed to get commits since last tag
         ssh-key: ${{ secrets.UEPSEUDO_SSH_KEY }}
 
+    - name: Add Rust to PATH
+      uses: actions-rust-lang/setup-rust-toolchain@v1
+
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v2
 
